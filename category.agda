@@ -3,6 +3,7 @@
 module category where
 
 open import setoid
+open import sigma
 
 record Category : Set where
   open Setoid
@@ -31,3 +32,23 @@ record Category : Set where
       (g : ∣ hom V W ∣)
       (h : ∣ hom U V ∣)
         → Setoid.eq (hom U X) ((f ∘ g) ∘ h) (f ∘ g ∘ h)
+
+  Co : ob → Set
+  Co d = Σ[ c ∶ ob ] ∣ hom c d ∣
+
+  Δ : ob → Set
+  Δ d = Σ[ I ∶ Set ] (I → Co d)
+
+  record Pullback {a b c : ob} (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
+    field
+      prod : ob
+      π₁ : ∣ hom prod a ∣
+      π₂ : ∣ hom prod b ∣
+      comm : eq (hom prod {!!}) (g ∘ π₂) (f ∘ π₁)
+      pull :
+        {q : ob}
+        (h₁ : ∣ hom q a ∣)
+        (h₂ : ∣ hom q b ∣)
+          → Σ![ u ∶ hom q prod ]
+                  eq (hom q b) (π₂ ∘ u) h₂
+               × eq (hom q a) (π₁ ∘ u) h₁
