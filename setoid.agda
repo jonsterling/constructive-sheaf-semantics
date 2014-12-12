@@ -13,30 +13,25 @@ record Setoid : Set where
     eq-equiv : is-equivalence-relation eq
 
   ∣_∣ = car
-
-module setoid-notation (S : Setoid) where
-  open Setoid
-  _∼_ : (M N : ∣ S ∣) → Set
-  _∼_ = Setoid.eq S
+  _∋_∼_ = eq
 
 record _⇒_ (S T : Setoid) : Set where
-  open setoid-notation {{...}}
   open Setoid
   
   field
     op : ∣ S ∣ → ∣ T ∣
-    ext : (M N : ∣ S ∣) (_ : M ∼ N) → op M ∼ op N
+    ext : (M N : ∣ S ∣) (_ : S ∋ M ∼ N) → T ∋ op M ∼ op N
 
   infixl 11 _∙_
   _∙_ = op
 
 _[⇒]_ : (S T : Setoid) → Setoid
 S [⇒] T =
-  let open Setoid ; open _⇒_ ; open setoid-notation {{...}} ; open is-equivalence-relation
+  let open Setoid ; open _⇒_ ; open is-equivalence-relation
       module S = Setoid S ; module T = Setoid T
   in record
     { car = S ⇒ T
-    ; eq = λ f g → (x y : ∣ S ∣) (p : x ∼ y) → (f ∙ x) ∼ (g ∙ y)
+    ; eq = λ f g → (x y : ∣ S ∣) (p : S ∋ x ∼ y) → T ∋ (f ∙ x) ∼ (g ∙ y)
     ; eq-equiv = record
         { reflexivity = λ {X} → ext X
         ; symmetry = λ p x y x∼y → symmetry T.eq-equiv (p y x (symmetry S.eq-equiv x∼y))

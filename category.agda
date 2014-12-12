@@ -22,15 +22,15 @@ record Category : Set where
 
     id-l : {X Y : ob}
       (f : ∣ hom X Y ∣)
-      → eq (hom X Y) (id Y ∘ f) f
+      → hom X Y ∋ id Y ∘ f ∼ f
     id-r : {X Y : ob}
       (f : ∣ hom X Y ∣)
-      → eq (hom X Y) (f ∘ id X) f
+      → hom X Y ∋ f ∘ id X ∼ f
     assoc : {U V W X : ob}
       (f : ∣ hom W X ∣)
       (g : ∣ hom V W ∣)
       (h : ∣ hom U V ∣)
-        → eq (hom U X) ((f ∘ g) ∘ h) (f ∘ g ∘ h)
+        → hom U X ∋ ((f ∘ g) ∘ h) ∼ (f ∘ g ∘ h)
 
   Co : ob → Set
   Co d = Σ[ c ∶ ob ] ∣ hom c d ∣
@@ -42,14 +42,14 @@ record Category : Set where
     field
       proj₁ : ∣ hom prod a ∣
       proj₂ : ∣ hom prod b ∣
-      comm : eq (hom prod c) (g ∘ proj₂) (f ∘ proj₁)
+      comm : hom prod c ∋ (g ∘ proj₂) ∼ (f ∘ proj₁)
       pull :
         {q : ob}
         (h₁ : ∣ hom q a ∣)
         (h₂ : ∣ hom q b ∣)
           → Σ![ u ∶ hom q prod ]
-                  eq (hom q b) (proj₂ ∘ u) h₂
-               × eq (hom q a) (proj₁ ∘ u) h₁
+                  hom q b ∋ (proj₂ ∘ u) ∼ h₂
+               × hom q a ∋ (proj₁ ∘ u) ∼ h₁
 
   has-pullbacks : Set
   has-pullbacks =

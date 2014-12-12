@@ -17,8 +17,8 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
       {c d : ℂ.ob}
       (f : ∣ ℂ.hom c d ∣)
       (g : ∣ ℂ.hom d c ∣)
-      (_ : eq (ℂ.hom c c) (g ℂ.∘ f) (ℂ.id c))
-      (_ : eq (ℂ.hom d d) (f ℂ.∘ g) (ℂ.id d))
+      (_ : ℂ.hom c c ∋ g ℂ.∘ f ∼ ℂ.id c)
+      (_ : ℂ.hom d d ∋ f ℂ.∘ g ∼ ℂ.id d)
         → d covered-by ⟨ Unit , (λ _ → ⟨ c , f ⟩) ⟩
 
     law-2 :
