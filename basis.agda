@@ -32,7 +32,7 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
             , (λ i →
                  let ⟨ p , pb ⟩ = pullback f[ i ] g
                      open ℂ.is-pullback
-                 in ⟨ p , π₂ pb ⟩)
+                 in ⟨ p , proj₂ pb ⟩)
             ⟩
 
     law-3 :

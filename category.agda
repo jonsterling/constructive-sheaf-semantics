@@ -40,16 +40,16 @@ record Category : Set where
 
   record is-pullback {a b c : ob} (prod : ob) (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
     field
-      π₁ : ∣ hom prod a ∣
-      π₂ : ∣ hom prod b ∣
-      comm : eq (hom prod c) (g ∘ π₂) (f ∘ π₁)
+      proj₁ : ∣ hom prod a ∣
+      proj₂ : ∣ hom prod b ∣
+      comm : eq (hom prod c) (g ∘ proj₂) (f ∘ proj₁)
       pull :
         {q : ob}
         (h₁ : ∣ hom q a ∣)
         (h₂ : ∣ hom q b ∣)
           → Σ![ u ∶ hom q prod ]
-                  eq (hom q b) (π₂ ∘ u) h₂
-               × eq (hom q a) (π₁ ∘ u) h₁
+                  eq (hom q b) (proj₂ ∘ u) h₂
+               × eq (hom q a) (proj₁ ∘ u) h₁
 
   has-pullbacks : Set
   has-pullbacks =
