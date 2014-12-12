@@ -22,6 +22,6 @@ record Σ! (A : Setoid ) (B : Setoid.car A → Set)  : Set where
   open Setoid
   field
     witness : Σ[ a ∶ ∣ A ∣ ] B a
-    unique : (a : ∣ A ∣) (p : B a) → eq A a (Σ.π₁ witness)
+    unique : (a : ∣ A ∣) (p : B a) → A ∋ a ∼ Σ.π₁ witness
 
 syntax Σ! A (λ a → B) = Σ![ a ∶ A ] B
