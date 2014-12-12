@@ -47,7 +47,7 @@ record Category : Set where
         {q : ob}
         (h₁ : ∣ hom q a ∣)
         (h₂ : ∣ hom q b ∣)
-          → Σ![ u ∶ hom q prod ]
+          → Σ![ u ∈ hom q prod ]
                   hom q b ∋ (proj₂ ∘ u) ∼ h₂
                × hom q a ∋ (proj₁ ∘ u) ∼ h₁
 
