@@ -7,8 +7,6 @@ open import setoid
 open import equivalence
 
 record Presheaf (ℂ : Category) : Set where
-  constructor ⟨_,_,_⟩
-
   module ℂ = Category ℂ
   open Setoid
   
