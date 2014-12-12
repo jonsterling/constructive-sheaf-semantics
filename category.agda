@@ -39,12 +39,11 @@ record Category : Set where
   Δ : ob → Set
   Δ d = Σ[ I ∶ Set ] (I → Co d)
 
-  record Pullback {a b c : ob} (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
+  record is-pullback {a b c : ob} (prod : ob) (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
     field
-      prod : ob
       π₁ : ∣ hom prod a ∣
       π₂ : ∣ hom prod b ∣
-      comm : eq (hom prod {!!}) (g ∘ π₂) (f ∘ π₁)
+      comm : eq (hom prod c) (g ∘ π₂) (f ∘ π₁)
       pull :
         {q : ob}
         (h₁ : ∣ hom q a ∣)
@@ -52,3 +51,10 @@ record Category : Set where
           → Σ![ u ∶ hom q prod ]
                   eq (hom q b) (π₂ ∘ u) h₂
                × eq (hom q a) (π₁ ∘ u) h₁
+
+  has-pullbacks : Set
+  has-pullbacks =
+    {a b c : ob}
+    (f : ∣ hom a c ∣)
+    (g : ∣ hom b c ∣)
+      → Σ[ p ∶ ob ] is-pullback p f g
