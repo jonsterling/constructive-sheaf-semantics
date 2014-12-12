@@ -24,23 +24,24 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
     law-2 :
       {c d : ℂ.ob}
       (f : ℂ.Δ d)
-      (let I = Σ.π₁ f ; f[_] = Σ.π₂ f)
+      (let I = Σ.π₁ f ; f[_] = λ i → Σ.π₂ (Σ.π₂ f i))
       (g : ∣ ℂ.hom c d ∣)
       (_ : d covered-by f)
         → c covered-by
             ⟨ I
             , (λ i →
-                 let ⟨ p , pb ⟩ = pullback (Σ.π₂ f[ i ]) g
-                 in ⟨ p , ℂ.is-pullback.π₂ pb ⟩)
+                 let ⟨ p , pb ⟩ = pullback f[ i ] g
+                     open ℂ.is-pullback
+                 in ⟨ p , π₂ pb ⟩)
             ⟩
 
     law-3 :
       {d : ℂ.ob}
       (f : ℂ.Δ d)
       (let I = Σ.π₁ f ; f[_] = λ i → Σ.π₂ (Σ.π₂ f i))
-      (let c = λ i → Σ.π₁ (Σ.π₂ f i))
+      (let c[_] = λ i → Σ.π₁ (Σ.π₂ f i))
       (_ : d covered-by f)
-      (g : (i : I) → ℂ.Δ (c i))
-      (let J = λ i → Σ.π₁ (g i) ; g[_,_] = λ i j → Σ.π₂ (Σ.π₂ (g i) j))
-      (_ : (i : I) → (c i) covered-by (g i))
+      (g[_] : (i : I) → ℂ.Δ c[ i ])
+      (let J = λ i → Σ.π₁ g[ i ] ; g[_,_] = λ i j → Σ.π₂ (Σ.π₂ g[ i ] j))
+      (_ : (i : I) → c[ i ] covered-by g[ i ])
         → d covered-by ⟨ Σ I J , (λ { ⟨ i , j ⟩ → ⟨ _ , f[ i ] ℂ.∘ g[ i , j ] ⟩}) ⟩
