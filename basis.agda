@@ -9,6 +9,7 @@ open import unit
 open import function
 
 record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set where
+
   module ℂ = Category ℂ
   open Setoid
   
@@ -28,10 +29,10 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
       ([f] : ℂ.Δ d)
       (g : ∣ ℂ.hom c d ∣)
       (let module [f] = ℂ.Δ [f] ; module f i = ℂ.Co ([f].morphisms i)
-           f[_] = f.morphism)
+           module f×g i = ℂ.Pullback (pullback (f.morphism i) g))
         → d covered-by [f]
         → c covered-by
-             ⟨ (let open ℂ.is-pullback (Σ.π₂ (pullback f[ i ] g)) in proj₂) ∶ _ [ i ]⇒ c ⟩[ i ∶ [f].index ]
+             ⟨ f×g.proj₂ i ∶ f×g.pullback i [ i ]⇒ c ⟩[ i ∶ [f].index ]
 
     law-3 :
       {d : ℂ.ob}

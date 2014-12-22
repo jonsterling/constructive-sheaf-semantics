@@ -55,12 +55,18 @@ record Category : Set where
                   hom q b ∋ (proj₂ ∘ u) ∼ h₂
                × hom q a ∋ (proj₁ ∘ u) ∼ h₁
 
+  record Pullback {a b c : ob} (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
+    field
+      pullback : ob
+      pullback-proof : is-pullback pullback f g
+    open is-pullback pullback-proof public
+
   has-pullbacks : Set
   has-pullbacks =
     {a b c : ob}
     (f : ∣ hom a c ∣)
     (g : ∣ hom b c ∣)
-      → Σ[ p ∶ ob ] is-pullback p f g
+      → Pullback f g
 
 mk-fam :
   {{ℂ : Category}}
