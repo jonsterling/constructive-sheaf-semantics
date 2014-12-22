@@ -22,10 +22,10 @@ record Category : Set where
 
     id-l : {X Y : ob}
       (f : ∣ hom X Y ∣)
-      → hom X Y ∋ id Y ∘ f ∼ f
+        → hom X Y ∋ id Y ∘ f ∼ f
     id-r : {X Y : ob}
       (f : ∣ hom X Y ∣)
-      → hom X Y ∋ f ∘ id X ∼ f
+        → hom X Y ∋ f ∘ id X ∼ f
     assoc : {U V W X : ob}
       (f : ∣ hom W X ∣)
       (g : ∣ hom V W ∣)
