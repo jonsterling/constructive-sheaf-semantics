@@ -10,7 +10,7 @@ open import function
 
 record Basis (ℂ : CategoryWithPullbacks) : Set where
   module ℂ = CategoryWithPullbacks ℂ
-  instance category = ℂ.category
+  private instance category = ℂ.category
 
   open ℂ
   open Setoid
