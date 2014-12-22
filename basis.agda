@@ -30,7 +30,7 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
       (f : ℂ.Δ d)
       (g : ∣ ℂ.hom c d ∣)
       (let module f = ℂ.Δ f
-           module f×g i = ℂ.Pullback (pullback (f.morphism i) g))
+           module f×g i = ℂ.Pullback (pullback (f.at i) g))
         → d covered-by f
         → c covered-by
              ⟨ f×g.proj₂ i
@@ -46,6 +46,6 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
         → d covered-by f
         → ((i : _) → f.dom i covered-by g i)
         → d covered-by
-             ⟨ (let ⟨ i , j ⟩ = ij in f.morphism i ℂ.∘ g.morphism i j)
+             ⟨ (let ⟨ i , j ⟩ = ij in f.at i ℂ.∘ g.at i j)
                ∶ _ [ ij ]⇒ d
              ⟩[ ij ∶ Σ f.index g.index ]

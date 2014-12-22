@@ -45,6 +45,8 @@ record Category : Set where
     module fam i = Co (fam i)
     open fam public
 
+    at = fam.morphism
+
   record is-pullback {a b c : ob} (prod : ob) (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
     field
       proj₁ : ∣ hom prod a ∣
