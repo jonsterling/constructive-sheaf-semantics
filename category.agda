@@ -32,13 +32,16 @@ record Category : Set where
       (h : ∣ hom U V ∣)
         → hom U X ∋ ((f ∘ g) ∘ h) ∼ (f ∘ g ∘ h)
 
-  Co : ob → Set
-  Co d = Σ[ c ∶ ob ] ∣ hom c d ∣
+  record Co (cod : ob) : Set where
+    field
+      dom : ob
+      morphism : ∣ hom dom cod ∣
 
-  Δ : ob → Set
-  Δ d = Σ[ I ∶ Set ] (I → Co d)
+  record Δ (d : ob) : Set where
+    field
+      index : Set
+      morphisms : index → Co d
 
-  
   record is-pullback {a b c : ob} (prod : ob) (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
     field
       proj₁ : ∣ hom prod a ∣
@@ -68,6 +71,6 @@ mk-fam :
   (d : ob)
   (f[_] : (i : I) → ∣ hom c[ i ] d ∣)
     → Δ d
-mk-fam I c[_] d f[_] = ⟨ I , (λ i → ⟨ c[ i ] , f[ i ] ⟩) ⟩
+mk-fam I c[_] d f[_] = record { index = I ; morphisms = λ i → record { dom = c[ i ] ; morphism = f[ i ] } }
 
 syntax mk-fam I (λ j → c) d (λ i → f) = ⟨ f ∶ c [ j ]⇒ d ⟩[ i ∶ I ]
