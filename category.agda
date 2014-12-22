@@ -73,6 +73,13 @@ record Category : Set where
     (g : ∣ hom b c ∣)
       → Pullback f g
 
+record CategoryWithPullbacks : Set where
+  field
+    category : Category
+    pullback : Category.has-pullbacks category
+
+  open Category category public
+  
 mk-fam :
   {{ℂ : Category}}
   (open Category ℂ)

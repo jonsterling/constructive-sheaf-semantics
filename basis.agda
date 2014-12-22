@@ -8,8 +8,9 @@ open import sigma
 open import unit
 open import function
 
-record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set where
-  module ℂ = Category ℂ
+record Basis (ℂ : CategoryWithPullbacks) : Set where
+  module ℂ = CategoryWithPullbacks ℂ
+  instance category = ℂ.category
 
   open ℂ
   open Setoid
@@ -45,7 +46,7 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
       (g : (i : f.index) → Δ (f.dom i))
       (let module g i = Δ (g i))
         → d covered-by f
-        → ((i : _) → f.dom i covered-by g i)
+        → ((i : f.index) → f.dom i covered-by g i)
         → d covered-by
              ⟨ (let ⟨ i , j ⟩ = ij in f.at i ℂ.∘ g.at i j)
                ∶ _ [ ij ]⇒ d
