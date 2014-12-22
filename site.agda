@@ -9,6 +9,11 @@ record Site : Set where
     category : CategoryWithPullbacks
     basis : Basis category
 
-  open Basis basis
-  open CategoryWithPullbacks category
+  open Basis basis public 
+  open CategoryWithPullbacks category hiding (category) public
 
+  record Cov : Set where
+    field
+      cod : ob
+      fam : Δ cod
+      covering : cod covered-by fam

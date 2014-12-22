@@ -7,8 +7,9 @@ open import setoid
 open import equivalence
 
 record Presheaf (ℂ : Category) : Set where
-  module ℂ = Category ℂ
-  open Setoid
+  private
+    module ℂ = Category ℂ
+    open Setoid
   
   field
     app₀ : (a : ℂ.ob) → Setoid
@@ -19,4 +20,3 @@ record Presheaf (ℂ : Category) : Set where
     map-comp : {a b c : ℂ.ob} (f : ∣ ℂ.hom b c ∣) (g : ∣ ℂ.hom a b ∣) {u : ∣ app₀ c ∣} → app₀ a ∋ (app₁ (f ℂ.∘ g) u) ∼ (app₁ g (app₁ f u))
     
   _$_ = app₀
-  _⟨$⟩_ = app₁

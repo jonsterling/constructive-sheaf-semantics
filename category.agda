@@ -76,9 +76,15 @@ record Category : Set where
 record CategoryWithPullbacks : Set where
   field
     category : Category
-    pullback : Category.has-pullbacks category
+    pullbacks : Category.has-pullbacks category
+
+  private
+    open Setoid
+    module ℂ = Category category
+  module pullbacks {a b c} (f : ∣ ℂ.hom a c ∣) (g : ∣ ℂ.hom b c ∣) = ℂ.Pullback (pullbacks f g)
 
   open Category category public
+  open pullbacks public hiding (pullback)
   
 mk-fam :
   {{ℂ : Category}}
