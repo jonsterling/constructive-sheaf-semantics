@@ -27,27 +27,25 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
 
     law-2 :
       {c d : ℂ.ob}
-      ([f] : ℂ.Δ d)
+      (f : ℂ.Δ d)
       (g : ∣ ℂ.hom c d ∣)
-      (let module [f] = ℂ.Δ [f] ; module f i = ℂ.Co ([f].morphisms i)
+      (let module f = ℂ.Δ f
            module f×g i = ℂ.Pullback (pullback (f.morphism i) g))
-        → d covered-by [f]
+        → d covered-by f
         → c covered-by
              ⟨ f×g.proj₂ i
                ∶ f×g.pullback i [ i ]⇒ c
-             ⟩[ i ∶ [f].index ]
+             ⟩[ i ∶ f.index ]
 
     law-3 :
       {d : ℂ.ob}
-      ([f] : ℂ.Δ d)
-      (let module [f] = ℂ.Δ [f] ; module f i = ℂ.Co ([f].morphisms i)
-           f[_] = f.morphism; c[_] = f.dom)
-      ([g] : (i : [f].index) → ℂ.Δ c[ i ])
-      (let module [g] i = ℂ.Δ ([g] i) ; module g i j = ℂ.Co ([g].morphisms i j)
-           g[_,_] = g.morphism)
-        → d covered-by [f]
-        → ((i : _) → c[ i ] covered-by [g] i)
+      (f : ℂ.Δ d)
+      (let module f = ℂ.Δ f)
+      (g : (i : f.index) → ℂ.Δ (f.dom i))
+      (let module g i = ℂ.Δ (g i))
+        → d covered-by f
+        → ((i : _) → f.dom i covered-by g i)
         → d covered-by
-             ⟨ (let ⟨ i , j ⟩ = ij in f[ i ] ℂ.∘ g[ i , j ])
+             ⟨ (let ⟨ i , j ⟩ = ij in f.morphism i ℂ.∘ g.morphism i j)
                ∶ _ [ ij ]⇒ d
-             ⟩[ ij ∶ Σ [f].index [g].index ]
+             ⟩[ ij ∶ Σ f.index g.index ]
