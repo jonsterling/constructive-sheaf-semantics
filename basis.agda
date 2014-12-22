@@ -9,28 +9,29 @@ open import unit
 open import function
 
 record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set where
-
   module ℂ = Category ℂ
+
+  open ℂ
   open Setoid
   
   field
-    _covered-by_ : (d : ℂ.ob) (w : ℂ.Δ d) → Set
+    _covered-by_ : (d : ob) (w : Δ d) → Set
 
     law-1 :
-      {c d : ℂ.ob}
-      (f : ∣ ℂ.hom c d ∣)
-      (g : ∣ ℂ.hom d c ∣)
-        → ℂ.hom c c ∋ g ℂ.∘ f ∼ ℂ.id c
-        → ℂ.hom d d ∋ f ℂ.∘ g ∼ ℂ.id d
+      {c d : ob}
+      (f : ∣ hom c d ∣)
+      (g : ∣ hom d c ∣)
+        → hom c c ∋ g ℂ.∘ f ∼ id c
+        → hom d d ∋ f ℂ.∘ g ∼ id d
         → d covered-by
             ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
 
     law-2 :
-      {c d : ℂ.ob}
-      (f : ℂ.Δ d)
-      (g : ∣ ℂ.hom c d ∣)
-      (let module f = ℂ.Δ f
-           module f×g i = ℂ.Pullback (pullback (f.at i) g))
+      {c d : ob}
+      (f : Δ d)
+      (g : ∣ hom c d ∣)
+      (let module f = Δ f
+           module f×g i = Pullback (pullback (f.at i) g))
         → d covered-by f
         → c covered-by
              ⟨ f×g.proj₂ i
@@ -38,11 +39,11 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
              ⟩[ i ∶ f.index ]
 
     law-3 :
-      {d : ℂ.ob}
-      (f : ℂ.Δ d)
-      (let module f = ℂ.Δ f)
-      (g : (i : f.index) → ℂ.Δ (f.dom i))
-      (let module g i = ℂ.Δ (g i))
+      {d : ob}
+      (f : Δ d)
+      (let module f = Δ f)
+      (g : (i : f.index) → Δ (f.dom i))
+      (let module g i = Δ (g i))
         → d covered-by f
         → ((i : _) → f.dom i covered-by g i)
         → d covered-by
