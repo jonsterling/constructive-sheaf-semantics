@@ -22,7 +22,8 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
       (g : ∣ ℂ.hom d c ∣)
         → ℂ.hom c c ∋ g ℂ.∘ f ∼ ℂ.id c
         → ℂ.hom d d ∋ f ℂ.∘ g ∼ ℂ.id d
-        → d covered-by ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
+        → d covered-by
+            ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
 
     law-2 :
       {c d : ℂ.ob}
@@ -32,7 +33,9 @@ record Basis (ℂ : Category) (pullback : Category.has-pullbacks ℂ) : Set wher
            module f×g i = ℂ.Pullback (pullback (f.morphism i) g))
         → d covered-by [f]
         → c covered-by
-             ⟨ f×g.proj₂ i ∶ f×g.pullback i [ i ]⇒ c ⟩[ i ∶ [f].index ]
+             ⟨ f×g.proj₂ i
+               ∶ f×g.pullback i [ i ]⇒ c
+             ⟩[ i ∶ [f].index ]
 
     law-3 :
       {d : ℂ.ob}
