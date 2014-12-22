@@ -12,23 +12,25 @@ record Sheaf (S : Site) : Set where
   private
     module S = Site S
     module ℂ× = CategoryWithPullbacks S.category
-    ℂ = ℂ×.category
-    module ℂ = Category ℂ
+    module ℂ = Category ℂ×.category
     open Setoid
-  
+
+  open Presheaf public
+
   field
-    presheaf : Presheaf ℂ
+    presheaf : Presheaf ℂ×.category
     descent :
-      ([U] : S.Cov)
+      (U : S.Cov)
       (let F = presheaf
            module F = Presheaf F
-           module [U] = S.Cov [U]
-           U = [U].fam ; module U = ℂ.Δ U
-           I = U.index ; open Presheaf)
-       (s[_] : (i : I) → ∣ F $ U.dom i ∣)
-       (_ :
-         (i j : I)
-         (let module Uᵢ×Uⱼ = ℂ.Pullback (ℂ×.pullbacks (U.at i) (U.at j)))
-           → F.app₀ Uᵢ×Uⱼ.pullback ∋ F.app₁ Uᵢ×Uⱼ.proj₁ s[ i ] ∼ F.app₁ Uᵢ×Uⱼ.proj₂ s[ j ])
-        → Σ![ s ∈ F $ [U].cod ]
-              ((i : I) → (F $ U.dom i) ∋ s[ i ] ∼ F.app₁ (U.at i) s)
+           module U = S.Cov U ; module [U] = ℂ.Δ U.fam ; ∪U = U.cod
+           module U-×U- i j = ℂ.Pullback (ℂ×.pullbacks ([U].at i) ([U].at j)))
+       (s[_] : ∀ i → ∣ F $ [U].dom i ∣)
+         → (∀ i j →
+               let
+                 Uᵢ×Uⱼ = U-×U-.pullback i j
+                 proj₁* = F.app₁ (U-×U-.proj₁ i j)
+                 proj₂* = F.app₁ (U-×U-.proj₂ i j)
+               in
+                 F $ Uᵢ×Uⱼ ∋ proj₁* s[ i ] ∼ proj₂* s[ j ])
+          → Σ![ s ∈ F $ ∪U ] (∀ i → F $ [U].dom i ∋ s[ i ] ∼ F.app₁ ([U].at i) s)

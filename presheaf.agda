@@ -20,3 +20,4 @@ record Presheaf (ℂ : Category) : Set where
     map-comp : {a b c : ℂ.ob} (f : ∣ ℂ.hom b c ∣) (g : ∣ ℂ.hom a b ∣) {u : ∣ app₀ c ∣} → app₀ a ∋ (app₁ (f ℂ.∘ g) u) ∼ (app₁ g (app₁ f u))
     
   _$_ = app₀
+  infixl 100 _$_
