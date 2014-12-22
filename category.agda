@@ -38,6 +38,7 @@ record Category : Set where
   Δ : ob → Set
   Δ d = Σ[ I ∶ Set ] (I → Co d)
 
+  
   record is-pullback {a b c : ob} (prod : ob) (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
     field
       proj₁ : ∣ hom prod a ∣
@@ -57,3 +58,16 @@ record Category : Set where
     (f : ∣ hom a c ∣)
     (g : ∣ hom b c ∣)
       → Σ[ p ∶ ob ] is-pullback p f g
+
+mk-fam :
+  {{ℂ : Category}}
+  (open Category ℂ)
+  (open Setoid)
+  (I : Set)
+  (c[_] : I → ob)
+  (d : ob)
+  (f[_] : (i : I) → ∣ hom c[ i ] d ∣)
+    → Δ d
+mk-fam I c[_] d f[_] = ⟨ I , (λ i → ⟨ c[ i ] , f[ i ] ⟩) ⟩
+
+syntax mk-fam I (λ j → c) d (λ i → f) = ⟨ f ∶ c [ j ]⇒ d ⟩[ i ∶ I ]
