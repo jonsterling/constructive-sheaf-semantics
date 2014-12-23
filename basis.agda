@@ -32,11 +32,11 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
       (f : Δ d)
       (g : ∣ hom c d ∣)
       (let module f = Δ f
-           module f×g i = Pullback (pullbacks (f.at i) g))
+           module f–×g i = Pullback (pullbacks (f.at i) g))
         → d covered-by f
         → c covered-by
-             ⟨ f×g.proj₂ i
-               ∶ f×g.pullback i [ i ]⇒ c
+             ⟨ f–×g.proj₂ i
+               ∶ f–×g.pullback i [ i ]⇒ c
              ⟩[ i ∶ f.index ]
 
     local-character :
