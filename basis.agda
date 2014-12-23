@@ -18,7 +18,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
   field
     _covered-by_ : (d : ob) (w : Δ d) → Set
 
-    law-1 :
+    isos-unit-family :
       {c d : ob}
       (f : ∣ hom c d ∣)
       (g : ∣ hom d c ∣)
@@ -27,7 +27,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
         → d covered-by
             ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
 
-    law-2 :
+    base-change-stability :
       {c d : ob}
       (f : Δ d)
       (g : ∣ hom c d ∣)
@@ -39,7 +39,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
                ∶ f×g.pullback i [ i ]⇒ c
              ⟩[ i ∶ f.index ]
 
-    law-3 :
+    local-character :
       {d : ob}
       (f : Δ d)
       (let module f = Δ f)
