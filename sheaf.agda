@@ -28,9 +28,9 @@ record Sheaf (S : Site) : Set where
        (s[_] : ∀ i → ∣ F $ [U].dom i ∣)
          → (∀ i j →
                let
-                 Uᵢ×Uⱼ = U–×U–.pullback i j
+                 Ui×Uj = U–×U–.pullback i j
                  proj₁* = F.app₁ (U–×U–.proj₁ i j)
                  proj₂* = F.app₁ (U–×U–.proj₂ i j)
                in
-                 F $ Uᵢ×Uⱼ ∋ proj₁* s[ i ] ∼ proj₂* s[ j ])
+                 F $ Ui×Uj ∋ proj₁* s[ i ] ∼ proj₂* s[ j ])
           → Σ![ s ∈ F $ ∪U ] (∀ i → F $ [U].dom i ∋ s[ i ] ∼ F.app₁ ([U].at i) s)
