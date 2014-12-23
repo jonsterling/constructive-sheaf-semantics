@@ -8,6 +8,9 @@ open import sigma
 open import unit
 open import function
 
+-- A basis for a Grothendieck topology: a Grothendieck pretopology.
+-- <http://ncatlab.org/nlab/show/Grothendieck+pretopology>
+
 record Basis (ℂ : CategoryWithPullbacks) : Set where
   module ℂ = CategoryWithPullbacks ℂ
   private instance category = ℂ.category
@@ -18,7 +21,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
   field
     _covered-by_ : (d : ob) (w : Δ d) → Set
 
-    isos-unit-family :
+    isomorphisms-cover :
       {c d : ob}
       (f : ∣ hom c d ∣)
       (g : ∣ hom d c ∣)
@@ -27,7 +30,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
         → d covered-by
             ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
 
-    base-change-stability :
+    stability :
       {c d : ob}
       (f : Δ d)
       (g : ∣ hom c d ∣)
@@ -39,7 +42,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
                ∶ f–×g.pullback i [ i ]⇒ c
              ⟩[ i ∶ f.index ]
 
-    local-character :
+    transitivity :
       {d : ob}
       (f : Δ d)
       (let module f = Δ f)
