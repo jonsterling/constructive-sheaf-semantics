@@ -1,8 +1,9 @@
 module equivalence where
 
+open import Agda.Primitive
 open import relation
 
-record is-equivalence-relation {A : Set} (_∼_ : Rel A A) : Set where
+record is-equivalence-relation {a} {A : Set a} (_∼_ : A → A → Set) : Set (lsuc a) where
   field
     reflexivity : {X : A} → X ∼ X
     symmetry : {X Y : A} → X ∼ Y → Y ∼ X
