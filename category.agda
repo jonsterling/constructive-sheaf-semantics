@@ -4,6 +4,7 @@ module category where
 
 open import setoid
 open import sigma
+open import equivalence
 
 record Category : Set where
   open Setoid
@@ -32,12 +33,24 @@ record Category : Set where
       (h : ∣ hom U V ∣)
         → hom U X ∋ ((f ∘ g) ∘ h) ∼ (f ∘ g ∘ h)
 
+  op : Category
+  op = record
+    { ob = ob
+    ; hom = λ a b → hom b a
+    ; id = id
+    ; _∘_ = λ {X} {Y} {Z} f g → g ∘ f
+    ; id-l = λ {X} {Y} → id-r
+    ; id-r = λ {X} {Y} → id-l
+    ; assoc = λ f g h → is-equivalence-relation.symmetry (eq-equiv (hom _ _)) (assoc h g f)
+    }
+
   record Co (cod : ob) : Set where
     field
       dom : ob
       morphism : ∣ hom dom cod ∣
 
   record Δ (d : ob) : Set where
+    constructor Δ⟨_,_⟩
     field
       index : Set
       fam : index → Co d
