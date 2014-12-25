@@ -16,3 +16,15 @@ data _* (A : Set) : Set where
   _∷_ : A → A * → A *
 
 infixr 9 _∷_
+
+module _ {A : Set} where
+  open Setoid
+  
+  □ : (el : A → Setoid) → A * → Setoid
+  □ el [] = [1]
+  □ el (x ∷ xs) = el x [×] □ el xs
+
+
+  □-map : {B : A → Setoid} {el : A → Setoid} (xs : A *) (f : ∀ a → ∣ el a ∣ → ∣ B a ∣) → ∣ □ el xs ∣ → ∣ □ B xs ∣
+  □-map [] f p = ⟨⟩
+  □-map (x ∷ xs) f ⟨ p , qs ⟩ = ⟨ f _ p , □-map xs f qs ⟩
