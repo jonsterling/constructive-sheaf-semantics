@@ -15,9 +15,9 @@ SET =
     record
       { ob = Setoid
       ; hom = _[⇒]_
-      ; id = λ X → record { op = λ z → z ; ext = λ M N z → z }
+      ; id = λ X → record { op = λ z → z ; ext = λ z → z }
       ; _∘_ = _[∘]_
-      ; id-l = ext
-      ; id-r = ext
-      ; assoc = λ f g h x y x∼y → ext f _ _ (ext g _ _ (ext h _ _ x∼y))
+      ; id-l = λ f x y → ext f
+      ; id-r = λ f x y → ext f
+      ; assoc = λ f g h x y x∼y → ext f (ext g (ext h x∼y))
       }
