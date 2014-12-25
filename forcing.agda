@@ -7,14 +7,14 @@ open import category
 open import functor
 open import sheaf
 open import site
-open import unit
-open import setoid
-open import sigma
-open import sum
+open import kit.unit
+open import kit.setoid
+open import kit.sigma
+open import kit.sum
 open import presheaf
-open import void
+open import kit.void
 open import natural-transformation
-open import list
+open import kit.list
 
 module Forcing (S : Site) where
   private
@@ -49,12 +49,12 @@ module Forcing (S : Site) where
 
       _⊩⟨_⟩_[_] : (c : ℂ.ob) (τ* : sort *) {τ : sort} (tm : L τ [ τ* ]) → ∣ □ (λ σ → ⟦ σ ⟧ $ c) τ* ∣ → Set
       c ⊩⟨ τ* ⟩ ⊤ [ e ] = Unit
-      c ⊩⟨ τ* ⟩ ⊥ [ e ] = c S.◂ Category.Δ⟨ Void , abort ⟩
+      c ⊩⟨ τ* ⟩ ⊥ [ e ] = c S.◂ S.Δ⟨ Void , abort ⟩
       c ⊩⟨ τ* ⟩ φ ∧ ψ [ e ] = (c ⊩⟨ τ* ⟩ φ [ e ]) × (c ⊩⟨ τ* ⟩ ψ [ e ])
       c ⊩⟨ τ* ⟩ φ ∨ ψ [ e ] =
-        Σ[ f ∶ ℂ.Δ c ] (∀ i →
+        Σ[ f ∶ S.Δ c ] (∀ i →
           let 
-            module f = ℂ.Δ f
+            module f = S.Δ f
             e′ = □-map τ* (λ σ a → app₁ ⟦ σ ⟧ (f.at i) ∙ a) e
           in
             f.dom i ⊩⟨ τ* ⟩ φ [ e′ ] + f.dom i ⊩⟨ τ* ⟩ ψ [ e′ ])
@@ -67,9 +67,9 @@ module Forcing (S : Site) where
           → d ⊩⟨ τ* ⟩ ψ [ e′ ]
 
       c ⊩⟨ τ* ⟩ `∃[ τ ] φ [ e ] =
-        Σ[ f ∶ ℂ.Δ c ]
+        Σ[ f ∶ S.Δ c ]
          let
-            module f = ℂ.Δ f
+            module f = S.Δ f
           in
             Σ[ γ ∶ (∀ i → ∣ ⟦ τ ⟧ $ f.dom i ∣) ] (∀ i →
               f.dom i ⊩⟨ τ ∷ τ* ⟩ φ [ ⟨ γ i , □-map τ* (λ σ a → app₁ ⟦ σ ⟧ (f.at i) ∙ a) e ⟩ ])

@@ -4,6 +4,7 @@ module sheaf where
 
 open import category
 open import category.pullbacks
+open import category.morphism-families as morphism-families
 open import functor
 open import presheaf
 open import kit.setoid
@@ -14,8 +15,7 @@ record Sheaf (S : Site) : Set where
   private
     module S = Site S
     ℂ = S.category ; module ℂ = Category ℂ
-    open Setoid
-    open _⇒_
+    open Setoid ; open _⇒_
 
   open Functor public
 
@@ -25,7 +25,7 @@ record Sheaf (S : Site) : Set where
       (U : S.Cov)
       (let F = presheaf
            module F = Functor F
-           module U = S.Cov U ; module [U] = ℂ.Δ U.fam ; ∪U = U.cod
+           module U = S.Cov U ; module [U] = S.Δ U.fam ; ∪U = U.cod
            module U–×U– i j = Pullbacks.Pullback _ (S.pullback ([U].at i) ([U].at j)))
        (s[_] : ∀ i → ∣ F $ [U].dom i ∣)
          → (∀ i j →

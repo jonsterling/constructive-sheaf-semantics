@@ -14,6 +14,7 @@ record Site : Set where
   open Basis basis public 
   open Category category public
   open Pullbacks category public
+  open import category.morphism-families category public
 
   record Cov : Set where
     field

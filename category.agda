@@ -38,37 +38,12 @@ record Category : Set where
     { ob = ob
     ; hom = λ a b → hom b a
     ; id = id
-    ; _∘_ = λ {X} {Y} {Z} f g → g ∘ f
-    ; id-l = λ {X} {Y} → id-r
-    ; id-r = λ {X} {Y} → id-l
-    ; assoc = λ f g h → is-equivalence-relation.symmetry (eq-equiv (hom _ _)) (assoc h g f)
+    ; _∘_ = λ f g → g ∘ f
+    ; id-l = id-r
+    ; id-r = id-l
+    ; assoc = λ f g h → symmetry (eq-equiv (hom _ _)) (assoc h g f)
     }
 
-  record Co (cod : ob) : Set where
-    field
-      dom : ob
-      morphism : ∣ hom dom cod ∣
+    where
+      open is-equivalence-relation
 
-  record Δ (d : ob) : Set where
-    constructor Δ⟨_,_⟩
-    field
-      index : Set
-      fam : index → Co d
-
-    module fam i = Co (fam i)
-    open fam public
-
-    at = fam.morphism
-
-mk-fam :
-  {{ℂ : Category}}
-  (open Category ℂ)
-  (open Setoid)
-  (I : Set)
-  (c[_] : I → ob)
-  (d : ob)
-  (f[_] : (i : I) → ∣ hom c[ i ] d ∣)
-    → Δ d
-mk-fam I c[_] d f[_] = record { index = I ; fam = λ i → record { dom = c[ i ] ; morphism = f[ i ] } }
-
-syntax mk-fam I (λ j → c) d (λ i → f) = ⟨ f ∶ c [ j ]⇒ d ⟩[ i ∶ I ]

@@ -8,6 +8,7 @@ open import kit.setoid
 open import kit.sigma
 open import kit.unit
 open import kit.function
+import category.morphism-families as morphism-families
 
 open Pullbacks
 
@@ -19,6 +20,7 @@ record Basis (ℂ : Category) (pullbacks : has-pullbacks ℂ) : Set where
     module ℂ = Category ℂ
     open ℂ
     open Setoid
+    open morphism-families ℂ
 
   field
     _◂_ : (d : ob) (w : Δ d) → Set

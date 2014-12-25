@@ -4,7 +4,7 @@ module kit.list where
 
 open import kit.unit
 open import kit.sigma
-open import setoid
+open import kit.setoid
 open import category
 open import category.setoids
 open import functor
