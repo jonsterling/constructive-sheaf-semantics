@@ -1,6 +1,6 @@
 {-# OPTIONS --type-in-type #-}
 
-module pullbacks where
+module category.pullbacks where
 
 open import category
 open import setoid

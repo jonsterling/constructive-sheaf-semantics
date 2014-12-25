@@ -1,8 +1,8 @@
 module site where
 
 open import category
+open import category.pullbacks
 open import basis
-open import pullbacks
 
 record Site : Set where
   constructor site⟨_,_⟩

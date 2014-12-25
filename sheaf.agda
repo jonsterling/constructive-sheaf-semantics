@@ -3,9 +3,9 @@
 module sheaf where
 
 open import category
+open import category.pullbacks
 open import functor
 open import presheaf
-open import pullbacks
 open import setoid
 open import sigma
 open import site

@@ -3,11 +3,11 @@
 module basis where
 
 open import category
+open import category.pullbacks
 open import setoid
 open import sigma
 open import unit
 open import function
-open import pullbacks
 
 open Pullbacks
 
