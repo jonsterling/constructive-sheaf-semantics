@@ -35,7 +35,7 @@ module _ (S : Site) where
       [_] : {τ* : _} {τ : sort} → atom τ → L τ [ τ* ]
       ⊤ ⊥ : {τ* : _} → L prop [ τ* ]
       _∧_ _∨_ _⊃_ : {τ* : _} → L prop [ τ* ] → L prop [ τ* ] → L prop [ τ* ]
-      `∀[_] `∃[_] : {Σ : _} (τ : sort) → L prop [ τ ∷ Σ ] → L prop [ Σ ]
+      `∀[_] `∃[_] : {τ* : _} (τ : sort) → L prop [ τ ∷ τ* ] → L prop [ τ* ]
 
     ⟨□⟩ : {A : Set} {ℂ : Category} (⟦_⟧ : A → Presheaf ℂ) (τ* : A *) → Presheaf ℂ
     ⟨□⟩ ⟦_⟧ [] = ⟨1⟩ _
@@ -45,7 +45,7 @@ module _ (S : Site) where
       field
         ⟦_⟧ : sort → Presheaf ℂ
         ⟦_⟧atom : {τ : sort} (c : atom τ) → NaturalTransformation (⟨1⟩ ℂ) ⟦ τ ⟧
-        ⟦_⟧tm : {Σ : sort *} {τ : sort} → NaturalTransformation (⟨□⟩ ⟦_⟧ Σ) ⟦ τ ⟧
+        ⟦_⟧tm : {τ* : sort *} {τ : sort} → NaturalTransformation (⟨□⟩ ⟦_⟧ τ*) ⟦ τ ⟧
 
     module forcing (I : Interpretation) where
       open Interpretation I
