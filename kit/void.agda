@@ -1,4 +1,4 @@
-module void where
+module kit.void where
 
 data Void : Set where
 

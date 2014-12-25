@@ -2,9 +2,9 @@
 
 module category where
 
-open import setoid
-open import sigma
-open import equivalence
+open import kit.setoid
+open import kit.sigma
+open import kit.equivalence
 
 record Category : Set where
   open Setoid

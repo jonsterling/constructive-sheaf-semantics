@@ -1,4 +1,4 @@
-module function where
+module kit.function where
 
 _∘_ :
   {a b c : _}

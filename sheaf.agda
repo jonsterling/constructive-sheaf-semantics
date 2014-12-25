@@ -6,8 +6,8 @@ open import category
 open import category.pullbacks
 open import functor
 open import presheaf
-open import setoid
-open import sigma
+open import kit.setoid
+open import kit.sigma
 open import site
 
 record Sheaf (S : Site) : Set where

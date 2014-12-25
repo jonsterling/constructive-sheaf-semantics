@@ -1,4 +1,4 @@
-module equivalence where
+module kit.equivalence where
 
 open import Agda.Primitive
 

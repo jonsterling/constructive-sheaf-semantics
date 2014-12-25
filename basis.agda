@@ -4,10 +4,10 @@ module basis where
 
 open import category
 open import category.pullbacks
-open import setoid
-open import sigma
-open import unit
-open import function
+open import kit.setoid
+open import kit.sigma
+open import kit.unit
+open import kit.function
 
 open Pullbacks
 

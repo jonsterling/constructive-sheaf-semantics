@@ -4,7 +4,7 @@ module natural-transformation where
 
 open import category
 open import functor
-open import setoid
+open import kit.setoid
 
 record NaturalTransformation {ℂ₁ ℂ₂ : Category} (F₁ F₂ : Functor ℂ₁ ℂ₂) : Set where
   private

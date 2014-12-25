@@ -3,8 +3,8 @@
 module category.pullbacks where
 
 open import category
-open import setoid
-open import sigma
+open import kit.setoid
+open import kit.sigma
 
 module Pullbacks (ℂ : Category) where
   private

@@ -1,15 +1,15 @@
 {-# OPTIONS --type-in-type #-}
 
-module list where
+module kit.list where
 
-open import unit
-open import sigma
+open import kit.unit
+open import kit.sigma
 open import setoid
 open import category
 open import category.setoids
 open import functor
 open import presheaf
-open import id
+open import kit.id
 
 data _* (A : Set) : Set where
   [] : A *

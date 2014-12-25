@@ -1,9 +1,9 @@
 {-# OPTIONS --type-in-type #-}
 
-module sigma where
+module kit.sigma where
 
-open import setoid
-open import equivalence
+open import kit.setoid
+open import kit.equivalence
 
 record Σ (A : Set) (B : A → Set) : Set where
   constructor ⟨_,_⟩

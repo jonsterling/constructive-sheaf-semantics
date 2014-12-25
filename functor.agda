@@ -3,7 +3,7 @@
 module functor where
 
 open import category
-open import setoid
+open import kit.setoid
 
 record Functor (ℂ₁ ℂ₂ : Category) : Set where
   private

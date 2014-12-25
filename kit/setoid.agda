@@ -1,8 +1,8 @@
 {-# OPTIONS --type-in-type #-}
 
-module setoid where
+module kit.setoid where
 
-open import equivalence
+open import kit.equivalence
 
 record Setoid : Set where
   field

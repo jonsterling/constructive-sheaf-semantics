@@ -1,6 +1,6 @@
-module id where
+module kit.id where
 
-open import equivalence
+open import kit.equivalence
 
 data _==_ {a} {A : Set a} (M : A) : A → Set a where
   refl : M == M

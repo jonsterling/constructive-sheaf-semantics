@@ -1,6 +1,6 @@
-module unit where
+module kit.unit where
 
-open import setoid
+open import kit.setoid
 
 record Unit : Set where
   constructor ⟨⟩

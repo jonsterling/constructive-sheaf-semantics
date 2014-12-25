@@ -5,9 +5,9 @@ module presheaf where
 open import category
 open import category.setoids
 open import functor
-open import unit
-open import setoid
-open import sigma
+open import kit.unit
+open import kit.setoid
+open import kit.sigma
 
 Presheaf : (ℂ : Category) → Set
 Presheaf ℂ = Functor op SET
