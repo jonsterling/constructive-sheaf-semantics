@@ -5,6 +5,7 @@ module sheaf where
 open import category
 open import functor
 open import presheaf
+open import pullbacks
 open import setoid
 open import sigma
 open import site
@@ -12,21 +13,20 @@ open import site
 record Sheaf (S : Site) : Set where
   private
     module S = Site S
-    module ℂ× = CategoryWithPullbacks S.category
-    module ℂ = Category ℂ×.category
+    ℂ = S.category ; module ℂ = Category ℂ
     open Setoid
     open _⇒_
 
   open Functor public
 
   field
-    presheaf : Presheaf ℂ×.category
+    presheaf : Presheaf ℂ
     descent :
       (U : S.Cov)
       (let F = presheaf
            module F = Functor F
            module U = S.Cov U ; module [U] = ℂ.Δ U.fam ; ∪U = U.cod
-           module U–×U– i j = ℂ.Pullback (ℂ×.pullbacks ([U].at i) ([U].at j)))
+           module U–×U– i j = Pullbacks.Pullback _ (S.pullback ([U].at i) ([U].at j)))
        (s[_] : ∀ i → ∣ F $ [U].dom i ∣)
          → (∀ i j →
                let

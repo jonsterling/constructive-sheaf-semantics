@@ -7,17 +7,19 @@ open import setoid
 open import sigma
 open import unit
 open import function
+open import pullbacks
+
+open Pullbacks
 
 -- A basis for a Grothendieck topology: a Grothendieck pretopology.
 -- <http://ncatlab.org/nlab/show/Grothendieck+pretopology>
 
-record Basis (ℂ : CategoryWithPullbacks) : Set where
-  module ℂ = CategoryWithPullbacks ℂ
-  private instance category = ℂ.category
+record Basis (ℂ : Category) (pullbacks : has-pullbacks ℂ) : Set where
+  private
+    module ℂ = Category ℂ
+    open ℂ
+    open Setoid
 
-  open ℂ
-  open Setoid
-  
   field
     _◂_ : (d : ob) (w : Δ d) → Set
 
@@ -34,7 +36,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
       (f : Δ d)
       (g : ∣ hom c d ∣)
       (let module f = Δ f
-           module f–×g i = Pullback (pullbacks (f.at i) g))
+           module f–×g i = Pullbacks.Pullback _ (pullbacks (f.at i) g))
         → d ◂ f
         → c ◂ ⟨ f–×g.proj₂ i ∶ f–×g.pullback i [ i ]⇒ c ⟩[ i ∶ f.index ]
 

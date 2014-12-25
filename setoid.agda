@@ -3,12 +3,11 @@
 module setoid where
 
 open import equivalence
-open import relation
 
 record Setoid : Set where
   field
     car : Set
-    eq : Rel car car
+    eq : car → car → Set
 
     eq-equiv : is-equivalence-relation eq
 

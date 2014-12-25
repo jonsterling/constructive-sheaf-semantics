@@ -5,8 +5,8 @@ module list where
 open import unit
 open import sigma
 open import setoid
-open import setoids
 open import category
+open import category.setoids
 open import functor
 open import presheaf
 open import id

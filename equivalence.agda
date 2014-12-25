@@ -1,7 +1,6 @@
 module equivalence where
 
 open import Agda.Primitive
-open import relation
 
 record is-equivalence-relation {a} {A : Set a} (_∼_ : A → A → Set) : Set (lsuc a) where
   field

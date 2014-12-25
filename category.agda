@@ -60,45 +60,6 @@ record Category : Set where
 
     at = fam.morphism
 
-  record is-pullback {a b c : ob} (prod : ob) (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
-    field
-      proj₁ : ∣ hom prod a ∣
-      proj₂ : ∣ hom prod b ∣
-      comm : hom prod c ∋ (g ∘ proj₂) ∼ (f ∘ proj₁)
-      pull :
-        {q : ob}
-        (h₁ : ∣ hom q a ∣)
-        (h₂ : ∣ hom q b ∣)
-          → Σ![ u ∈ hom q prod ]
-                  hom q b ∋ (proj₂ ∘ u) ∼ h₂
-               × hom q a ∋ (proj₁ ∘ u) ∼ h₁
-
-  record Pullback {a b c : ob} (f : ∣ hom a c ∣) (g : ∣ hom b c ∣) : Set where
-    field
-      pullback : ob
-      pullback-proof : is-pullback pullback f g
-    open is-pullback pullback-proof public
-
-  has-pullbacks : Set
-  has-pullbacks =
-    {a b c : ob}
-    (f : ∣ hom a c ∣)
-    (g : ∣ hom b c ∣)
-      → Pullback f g
-
-record CategoryWithPullbacks : Set where
-  field
-    category : Category
-    pullbacks : Category.has-pullbacks category
-
-  private
-    open Setoid
-    module ℂ = Category category
-  module pullbacks {a b c} (f : ∣ ℂ.hom a c ∣) (g : ∣ ℂ.hom b c ∣) = ℂ.Pullback (pullbacks f g)
-
-  open Category category public
-  open pullbacks public hiding (pullback)
-  
 mk-fam :
   {{ℂ : Category}}
   (open Category ℂ)

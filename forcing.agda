@@ -16,16 +16,11 @@ open import void
 open import natural-transformation
 open import list
 
-module _ (S : Site) where
+module Forcing (S : Site) where
   private
     open Setoid
-    
     module S = Site S
-    ℂ× = S.category
-    module ℂ× = CategoryWithPullbacks ℂ×
-
-    ℂ = ℂ×.category
-    module ℂ = Category ℂ
+    ℂ = S.category ; module ℂ = Category ℂ
   
   data sort : Set where
     prop : sort

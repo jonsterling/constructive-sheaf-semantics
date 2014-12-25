@@ -1,6 +1,6 @@
 {-# OPTIONS --type-in-type #-}
 
-module setoids where
+module category.setoids where
 
 open import setoid
 open import category
