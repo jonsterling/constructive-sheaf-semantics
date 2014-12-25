@@ -7,6 +7,8 @@ open import setoids
 open import functor
 open import equivalence
 open import unit
+open import setoid
+open import sigma
 
 Presheaf : (ℂ : Category) → Set
 Presheaf ℂ =
@@ -26,3 +28,16 @@ Presheaf ℂ =
     ; map-id = λ {a} x y p → ⟨⟩
     ; map-comp = λ {a} {b} {c} f g x y p → ⟨⟩
     }
+
+_⟨×⟩_ : {ℂ : Category} (F G : Presheaf ℂ) → Presheaf ℂ
+F ⟨×⟩ G = record
+  { app₀ = λ a → F $ a [×] G $ a
+  ; app₁ = λ f → record { op = λ { ⟨ x , y ⟩ → ⟨ F.app₁ f ∙ x , G.app₁ f ∙ y ⟩ }; ext = λ { M N ⟨ p , q ⟩ → ⟨ ext (F.app₁ f) _ _ p , ext (G.app₁ f) _ _ q ⟩ } }
+  ; map-id = λ { ⟨ x₁ , x₂ ⟩ ⟨ y₁ , y₂ ⟩ ⟨ p , q ⟩ → ⟨ F.map-id x₁ y₁ p , G.map-id x₂ y₂ q ⟩ }
+  ; map-comp = λ { f g ⟨ x₁ , x₂ ⟩ ⟨ y₁ , y₂ ⟩ ⟨ p , q ⟩ → ⟨ (F.map-comp f g x₁ y₁ p) , (G.map-comp f g x₂ y₂ q) ⟩ }
+  }
+
+  where
+    module F = Functor F
+    module G = Functor G
+    open Functor ; open Setoid ; open _⇒_
