@@ -54,7 +54,7 @@ module _ (S : Site) where
 
       _⊩⟨_⟩_[_] : (c : ℂ.ob) (τ* : sort *) {τ : sort} (tm : L τ [ τ* ]) → ∣ □ (λ σ → ⟦ σ ⟧ $ c) τ* ∣ → Set
       c ⊩⟨ τ* ⟩ ⊤ [ e ] = Unit
-      c ⊩⟨ τ* ⟩ ⊥ [ e ] = c S.covered-by Category.Δ⟨ Void , abort ⟩
+      c ⊩⟨ τ* ⟩ ⊥ [ e ] = c S.◂ Category.Δ⟨ Void , abort ⟩
       c ⊩⟨ τ* ⟩ φ ∧ ψ [ e ] = (c ⊩⟨ τ* ⟩ φ [ e ]) × (c ⊩⟨ τ* ⟩ ψ [ e ])
       c ⊩⟨ τ* ⟩ φ ∨ ψ [ e ] =
         Σ[ f ∶ ℂ.Δ c ] (∀ i →
@@ -73,7 +73,7 @@ module _ (S : Site) where
 
       c ⊩⟨ τ* ⟩ `∃[ τ ] φ [ e ] =
         Σ[ f ∶ ℂ.Δ c ]
-          let
+         let
             module f = ℂ.Δ f
           in
             Σ[ γ ∶ (∀ i → ∣ ⟦ τ ⟧ $ f.dom i ∣) ] (∀ i →

@@ -19,7 +19,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
   open Setoid
   
   field
-    _covered-by_ : (d : ob) (w : Δ d) → Set
+    _◂_ : (d : ob) (w : Δ d) → Set
 
     isomorphisms-cover :
       {c d : ob}
@@ -27,8 +27,7 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
       (g : ∣ hom d c ∣)
         → hom c c ∋ g ℂ.∘ f ∼ id c
         → hom d d ∋ f ℂ.∘ g ∼ id d
-        → d covered-by
-            ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
+        → d ◂ ⟨ f ∶ c [ i ]⇒ d ⟩[ i ∶ Unit ]
 
     stability :
       {c d : ob}
@@ -36,11 +35,8 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
       (g : ∣ hom c d ∣)
       (let module f = Δ f
            module f–×g i = Pullback (pullbacks (f.at i) g))
-        → d covered-by f
-        → c covered-by
-             ⟨ f–×g.proj₂ i
-               ∶ f–×g.pullback i [ i ]⇒ c
-             ⟩[ i ∶ f.index ]
+        → d ◂ f
+        → c ◂ ⟨ f–×g.proj₂ i ∶ f–×g.pullback i [ i ]⇒ c ⟩[ i ∶ f.index ]
 
     transitivity :
       {d : ob}
@@ -48,9 +44,6 @@ record Basis (ℂ : CategoryWithPullbacks) : Set where
       (let module f = Δ f)
       (g : (i : f.index) → Δ (f.dom i))
       (let module g i = Δ (g i))
-        → d covered-by f
-        → ((i : f.index) → f.dom i covered-by g i)
-        → d covered-by
-             ⟨ (let ⟨ i , j ⟩ = ij in f.at i ℂ.∘ g.at i j)
-               ∶ _ [ ij ]⇒ d
-             ⟩[ ij ∶ Σ f.index g.index ]
+        → d ◂ f
+        → ((i : f.index) → f.dom i ◂ g i)
+        → d ◂ ⟨ (let ⟨ i , j ⟩ = ij in f.at i ℂ.∘ g.at i j) ∶ _ [ ij ]⇒ d ⟩[ ij ∶ Σ f.index g.index ]

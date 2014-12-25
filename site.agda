@@ -16,4 +16,4 @@ record Site : Set where
     field
       cod : ob
       fam : Δ cod
-      covering : cod covered-by fam
+      covering : cod ◂ fam
