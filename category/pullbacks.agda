@@ -20,6 +20,7 @@ module Pullbacks (ℂ : Category) where
         {q : ℂ.ob}
         (h₁ : ∣ ℂ.hom q a ∣)
         (h₂ : ∣ ℂ.hom q b ∣)
+        (comm' : ℂ.hom q c ∋ (g ℂ.∘ h₂) ∼ (f ℂ.∘ h₁))
           → Σ![ u ∈ ℂ.hom q prod ]
                 ℂ.hom q b ∋ (proj₂ ℂ.∘ u) ∼ h₂ × ℂ.hom q a ∋ (proj₁ ℂ.∘ u) ∼ h₁
 
